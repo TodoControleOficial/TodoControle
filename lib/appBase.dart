@@ -2,10 +2,10 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tdc/pages/AboutSceen.dart';
-import 'package:tdc/pages/AddScreen.dart';
 import 'package:tdc/pages/ConfigurationsScreen.dart';
 import 'package:tdc/pages/ContextsScreen.dart';
 import 'package:tdc/pages/HomeScreen.dart';
+import 'package:tdc/pages/teste.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
