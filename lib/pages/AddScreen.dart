@@ -9,7 +9,6 @@ import '../util/Carta.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
-
   @override
   State<AddScreen> createState() => _AddScreenState();
 }
@@ -21,6 +20,16 @@ class _AddScreenState extends State<AddScreen> {
   Widget build(BuildContext context) {
     final List<XFile> list = [];
     final List<String> paths = [];
+    final addValue = ValueNotifier('');
+    final addOpcoes = [
+      'Higiene',
+      'Refeições',
+      'Compras',
+      'Entretenimento',
+      'Objetivas',
+      'Pessoas',
+      'Cumprimentos'
+    ];
     String path = '';
 
     bool full = false;
@@ -54,7 +63,7 @@ class _AddScreenState extends State<AddScreen> {
                                 text; //precisa construir um TextController para os Labels
                           },
                           decoration: const InputDecoration(
-                            labelText: 'Descrição da imagem:',
+                            labelText: 'Descrição da imagem, arraste aq:',
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(25))),
@@ -62,16 +71,22 @@ class _AddScreenState extends State<AddScreen> {
                       SizedBox(
                         height: 8,
                       ),
-                      TextField(
-                          onChanged: (text) {
-                            contexto = text;
-                          },
-                          decoration: const InputDecoration(
-                            labelText: 'Contexto:',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25))),
-                          )),
+                      ValueListenableBuilder(
+                          valueListenable: addValue,
+                          builder: (BuildContext context, String value, _) {
+                            return DropdownButton<String>(
+                              hint: const Text('Contexto'),
+                              value: (value.isEmpty) ? null : value,
+                              onChanged: (escolha) =>
+                                  addValue.value = escolha.toString(),
+                              items: addOpcoes
+                                  .map((op) => DropdownMenuItem(
+                                        value: op,
+                                        child: Text(op),
+                                      ))
+                                  .toList(),
+                            );
+                          }),
                       SizedBox(
                         height: 30,
                       ),
@@ -133,10 +148,10 @@ class _AddScreenState extends State<AddScreen> {
                         ),
                         onPressed: () {
                           if (nome != '' && contexto != '' && path != '') {
-                            Carta carta = Carta(
+                            /*Carta carta = Carta(
                               assignedText: nome,
                               path: path,
-                            );
+                            );*/
                           }
                         },
                       ),
