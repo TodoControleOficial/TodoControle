@@ -22,6 +22,7 @@ class _AddScreenState extends State<AddScreen> {
     final List<String> paths = [];
     final addValue = ValueNotifier('');
     final addOpcoes = [
+      'Pais'
       'Higiene',
       'Refeições',
       'Compras',
@@ -29,6 +30,7 @@ class _AddScreenState extends State<AddScreen> {
       'Objetivas',
       'Pessoas',
       'Cumprimentos'
+      'Terapeuta'
     ];
     String path = '';
 

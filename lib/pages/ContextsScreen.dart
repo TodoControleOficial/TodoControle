@@ -16,11 +16,41 @@ class _ContextsScreenState extends State<ContextsScreen> {
   FlutterTts flutterTts = FlutterTts();
   int selectedRowIndex = 0;
   int selectedColIndex = 1;
-  final ScrollController _scrollController = ScrollController();
+  late ScrollController scrollCont;
+  final List<GlobalKey> contextos = [
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey()
+  ];
+
+  scrollTo(int index) async {
+    final contexto = contextos[index].currentContext!;
+    await Scrollable.ensureVisible(contexto,
+        duration: Duration(milliseconds: 600));
+  }
 
   //puxar e criar aqui as cartas, não no List.
+  List<Carta> pais = [
+    Carta(
+      isTitle: true,
+      title: 'Pais',
+    ),
+    Carta(isTitle: false, assignedText: 'Vanuza', path: 'path/vanuza.jpeg'
+        // 'https://static.vecteezy.com/ti/vetor-gratis/p3/4695135-silhueta-de-vaso-sanitario-gr%C3%A1tis-vetor.jpg'
+        ),
+    Carta(isTitle: false, assignedText: 'Delvano', path: 'path/delvano.jpeg'),
+  ];
   List<Carta> higiene = [
-    Carta(isTitle: true, title: 'Higiene',),
+    Carta(
+      isTitle: true,
+      title: 'Higiene',
+    ),
     Carta(
         isTitle: false,
         assignedText: 'Preciso usar o banheiro',
@@ -39,16 +69,13 @@ class _ContextsScreenState extends State<ContextsScreen> {
         path: 'path/escovardentes.jpg'
         // 'https://thumbs.dreamstime.com/b/escova-de-dentes-com-silhueta-do-dent%C3%ADfrico-111638758.jpg'
         ),
-    Carta(
-        isTitle: false,
-        assignedText: 'O papel acabou',
-        path: 'path/papelacabou.jpg'
-        //'https://i0.wp.com/radioformulaqr.com/wp-content/uploads/2021/11/papel-higienico.jpg?fit=840%2C560&ssl=1'
-        ),
   ];
 
   List<Carta> refeicoes = [
-    Carta(isTitle: true, title: 'Refeições',),
+    Carta(
+      isTitle: true,
+      title: 'Refeições',
+    ),
     Carta(
         isTitle: false,
         assignedText: 'Estou satisfeito',
@@ -79,19 +106,10 @@ class _ContextsScreenState extends State<ContextsScreen> {
         ),
   ];
   List<Carta> compras = [
-    Carta(isTitle: true, title: 'Compras',),
-    Carta(isTitle: false, assignedText: 'Dinheiro', path: 'path/dinheiro.jpg'
-        // 'https://classic.exame.com/wp-content/uploads/2020/11/dc2b4c3b3lar.jpg?quality=70&strip=info&w=960'
-        ),
-    Carta(isTitle: false, assignedText: 'Crédito ', path: 'path/credito.jpg'
-        // 'https://imagens.ebc.com.br/QlgF2DFidMMBSGywkMGorQf_Ww8=/1170x700/smart/https://agenciabrasil.ebc.com.br/sites/default/files/atoms/image/cataoes_credito.jpg?itok=N-m7CuyU'
-        ),
-    Carta(isTitle: false, assignedText: 'Débito', path: 'path/debito.jpg'
-        // 'https://www.mastercard.com.br/content/dam/public/mastercardcom/lac/br/home/consumidores/encontre-seu-cartao/cartoes-debito/Cartao-com-uso-exclusivo-para-Debito.jpg'
-        ),
-    Carta(isTitle: false, assignedText: 'Pix', path: 'path/pix.jpg'
-        // 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo%E2%80%94pix_powered_by_Banco_Central_%28Brazil%2C_2020%29.svg/1200px-Logo%E2%80%94pix_powered_by_Banco_Central_%28Brazil%2C_2020%29.svg.png'
-        ),
+    Carta(
+      isTitle: true,
+      title: 'Compras',
+    ),
     Carta(
         isTitle: false, assignedText: 'Quanto deu?', path: 'path/quantodeu.jpg'
         // 'https://portuguessemmisterio.files.wordpress.com/2017/12/transferindo-dinheiro.jpg'
@@ -99,7 +117,10 @@ class _ContextsScreenState extends State<ContextsScreen> {
   ];
 
   List<Carta> entretenimento = [
-    Carta(isTitle: true, title: 'Entretenimento',),
+    Carta(
+      isTitle: true,
+      title: 'Entretenimento',
+    ),
     Carta(isTitle: false, assignedText: 'Ligue a TV', path: 'path/ligaratv.jpg'
         // 'https://img.freepik.com/vetores-premium/tela-de-tv-realista-painel-de-lcd-de-televisao-moderna-com-partida-de-futebol_97886-738.jpg'
         ),
@@ -130,21 +151,25 @@ class _ContextsScreenState extends State<ContextsScreen> {
     Carta(
         isTitle: false,
         assignedText: 'Aumente o volume',
-        path: 'path/aumenteovolume.jpg'
-        // 'https://pixel.cuboup.com/wp-content/uploads/edd/2022/06/Volume-Aumentar-Mais-Alto-Falante.jpg'
-        ),
+        path: 'path/aumenteovolume.jpg'),
   ];
   List<Carta> objetivas = [
-    Carta(isTitle: true, title: 'Objetivas',),
-    Carta(isTitle: false, assignedText: 'Sim.', path: 'path/sim.jpg'
-        // 'https://cdn-icons-png.flaticon.com/512/6715/6715889.png'
-        ),
+    Carta(
+      isTitle: true,
+      title: 'Objetivas',
+    ),
+    Carta(isTitle: false, assignedText: 'Sim.', path: 'path/sim.jpg'),
     Carta(isTitle: false, assignedText: 'Não.', path: 'path/nao.jpg'
         // 'https://thumbs.dreamstime.com/b/pessoa-3d-com-um-s%C3%ADmbolo-negativo-20673140.jpg'
         ),
+    Carta(isTitle: false, assignedText: 'Gostei', path: 'path/like.jpg'),
+    Carta(isTitle: false, assignedText: 'Não Gostei', path: 'path/Dislike.jpg'),
   ];
   List<Carta> pessoas = [
-    Carta(isTitle: true, title: 'Pessoas',),
+    Carta(
+      isTitle: true,
+      title: 'Pessoas',
+    ),
     Carta(isTitle: false, assignedText: 'Eu.', path: 'path/eu.png'
         // 'http://2.bp.blogspot.com/-BPUiRLaAwTk/VNseIQbYa3I/AAAAAAAABlk/M16QpmWImRA/s1600/eu.jpg'
         ),
@@ -169,7 +194,7 @@ class _ContextsScreenState extends State<ContextsScreen> {
   ];
   List<Carta> cumprimentos = [
     Carta(isTitle: true, title: 'Cumprimentos'),
-    Carta(isTitle: false, assignedText: 'Olá', path: 'path/ola.jpg'
+    Carta(isTitle: false, assignedText: 'E a i?', path: 'path/ola.jpg'
         // 'https://www.skill.com.br/Lib/Redimensiona.ashx?img=noticia/thumb_20190627123435289.jpg&w=850&h=400'
         ),
     Carta(isTitle: false, assignedText: 'Bom dia.', path: 'path/bomdia.jpg'
@@ -185,11 +210,22 @@ class _ContextsScreenState extends State<ContextsScreen> {
         // 'https://encrypted-tbn0.gstatic.com/path?q=tbn:ANd9GcQEhdX-MYGkfc9-ODFJSXheApKKFbF2LI5m-Q&usqp=CAU'
         ),
   ];
-
+  List<Carta> terapeuta = [
+    Carta(
+      isTitle: true,
+      title: 'Terapeuta',
+    ),
+    Carta(
+      isTitle: false,
+      assignedText: 'teste',
+      path: 'path/pix.jpg',
+    )
+  ];
   List<List<Carta>> gridItems = [];
 
   @override
   void initState() {
+    gridItems.add(pais);
     gridItems.add(higiene);
     gridItems.add(refeicoes);
     gridItems.add(compras);
@@ -197,6 +233,10 @@ class _ContextsScreenState extends State<ContextsScreen> {
     gridItems.add(objetivas);
     gridItems.add(pessoas);
     gridItems.add(cumprimentos);
+    gridItems.add(terapeuta);
+
+    scrollCont = ScrollController();
+
     super.initState();
     RawKeyboard.instance.addListener(handleKeyEvent);
   }
@@ -204,19 +244,18 @@ class _ContextsScreenState extends State<ContextsScreen> {
   @override
   void dispose() {
     RawKeyboard.instance.removeListener(handleKeyEvent);
-    _scrollController.dispose();
     super.dispose();
   }
 
   void handleKeyEvent(RawKeyEvent event) {
     if (event is RawKeyDownEvent) {
-      if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+      if (event.logicalKey == LogicalKeyboardKey.keyW) {
         navigateToPreviousRow();
-      } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+      } else if (event.logicalKey == LogicalKeyboardKey.keyS) {
         navigateToNextRow();
-      } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+      } else if (event.logicalKey == LogicalKeyboardKey.keyA) {
         navigateToPreviousItem();
-      } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+      } else if (event.logicalKey == LogicalKeyboardKey.keyD) {
         navigateToNextItem();
       } else if (event.logicalKey == LogicalKeyboardKey.enter) {
         handleEnterKeyPress();
@@ -230,12 +269,14 @@ class _ContextsScreenState extends State<ContextsScreen> {
         selectedRowIndex--;
         selectedColIndex = 1;
       });
-    } else if (selectedRowIndex == 0) {
+      scrollTo(selectedRowIndex);
+    } 
+    /*else if (selectedRowIndex == 0) {
       setState(() {
         selectedRowIndex = gridItems.length - 1;
         selectedColIndex = 1;
       });
-    }
+    }*/
   }
 
   void navigateToNextRow() {
@@ -244,12 +285,14 @@ class _ContextsScreenState extends State<ContextsScreen> {
         selectedRowIndex++;
         selectedColIndex = 1;
       });
-    } else if (selectedRowIndex == gridItems.length - 1) {
+      scrollTo(selectedRowIndex);
+    }
+    /*else if (selectedRowIndex == gridItems.length - 1) {
       setState(() {
         selectedRowIndex = 0;
         selectedColIndex = 1;
       });
-    }
+    }*/
   }
 
   void navigateToPreviousItem() {
@@ -302,6 +345,7 @@ class _ContextsScreenState extends State<ContextsScreen> {
         }
       },
       child: GridView.builder(
+        controller: scrollCont,
         itemCount: gridItems.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 4.4,
@@ -311,6 +355,7 @@ class _ContextsScreenState extends State<ContextsScreen> {
         ),
         itemBuilder: (BuildContext context, int rowIndex) {
           return Row(
+            key: contextos[rowIndex],
             children: List.generate(
               gridItems[rowIndex].length,
               (int colIndex) {
@@ -327,7 +372,10 @@ class _ContextsScreenState extends State<ContextsScreen> {
                       handleEnterKeyPress();
                     },
                     child: item.isTitle
-                        ? Carta(isTitle: item.isTitle, title: item.title!,)
+                        ? Carta(
+                            isTitle: item.isTitle,
+                            title: item.title!,
+                          )
                         : Carta(
                             isTitle: item.isTitle,
                             assignedText: item.assignedText!,
