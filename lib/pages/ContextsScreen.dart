@@ -210,17 +210,17 @@ class _ContextsScreenState extends State<ContextsScreen> {
         // 'https://encrypted-tbn0.gstatic.com/path?q=tbn:ANd9GcQEhdX-MYGkfc9-ODFJSXheApKKFbF2LI5m-Q&usqp=CAU'
         ),
   ];
-  List<Carta> terapeuta = [
+  /*List<Carta> terapeuta = [
     Carta(
       isTitle: true,
       title: 'Terapeuta',
     ),
-    Carta(
+    //Carta(
       isTitle: false,
       assignedText: 'teste',
       path: 'path/pix.jpg',
     )
-  ];
+  ];*/
   List<List<Carta>> gridItems = [];
 
   @override
@@ -233,7 +233,7 @@ class _ContextsScreenState extends State<ContextsScreen> {
     gridItems.add(objetivas);
     gridItems.add(pessoas);
     gridItems.add(cumprimentos);
-    gridItems.add(terapeuta);
+    // gridItems.add(terapeuta);
 
     scrollCont = ScrollController();
 
@@ -270,7 +270,7 @@ class _ContextsScreenState extends State<ContextsScreen> {
         selectedColIndex = 1;
       });
       scrollTo(selectedRowIndex);
-    } 
+    }
     /*else if (selectedRowIndex == 0) {
       setState(() {
         selectedRowIndex = gridItems.length - 1;

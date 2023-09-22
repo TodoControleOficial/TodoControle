@@ -20,18 +20,18 @@ Color newblue = const Color(0xff8ecae6);
 class _MyHomeState extends State<MyHome> {
   final screens = [
     //const HomeScreen(),
-    const AddScreen(),
+    //const AddScreen(),
     const ContextsScreen(),
-    const ConfigurationsScreen(),
+    //const ConfigurationsScreen(),
     //xconst AboutScreen(),
   ];
 
-  int index = 1;
+  int index = 0;
   final items = <Widget>[
     //const Icon(Icons.home, size: 30),
-    const Icon(Icons.add_circle, size: 30),
+    //const Icon(Icons.add_circle, size: 30),
     const Icon(Icons.article, size: 30),
-    const Icon(Icons.settings, size: 30),
+    //const Icon(Icons.settings, size: 30),
     //const Icon(Icons.question_mark, size: 30),
   ];
 
